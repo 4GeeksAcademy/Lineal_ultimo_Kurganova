@@ -20,7 +20,12 @@ st.markdown('<style>h1 { color: brown; }</style>', unsafe_allow_html=True)
 st.title("Insurance Calculator")
 
 # mapping for region, sex and smoker
-
+region_mapping = {
+    'southwest' : 0, 
+    'southeast': 1, 
+    'northwest': 2, 
+    'northeast': 3
+    }
 
 smoker_mapping = {
     'Yes': 0, 
@@ -40,7 +45,10 @@ age = st.slider(
     step = 1
     )
 
-
+sex_n = st.selectbox(
+    'Plase, enter the sex:',
+    ['Female', 'Male']
+    )
 
 bmi = st.slider(
     'Body mass index (BMI):',
@@ -61,16 +69,19 @@ smoker_n = st.selectbox(
     ['Yes', 'No'] 
     )
 
-
+region_n = st.selectbox(
+    'Region:',
+    ['southwest', 'southeast', 'northwest', 'northeast'],
+    )
 
 if st.button("Predict"):
     row = [
         age,
-        
+        sex_mapping[sex_n],
         smoker_mapping[smoker_n],
         children,
         bmi,
-       
+        region_mapping[region_n]
         ]
 
     scal_data = scaler.transform([row])
